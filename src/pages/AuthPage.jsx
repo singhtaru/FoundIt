@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import { authApi } from '../services/api';
@@ -214,9 +214,6 @@ function AuthPage() {
             >
               Continue as guest
             </button>
-          </div>
-          <div className="auth-secondary-link">
-            <Link to="/search">Browse listings first</Link>
           </div>
         </section>
       </div>

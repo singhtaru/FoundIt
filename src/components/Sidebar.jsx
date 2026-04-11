@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { adminMenu } from '../assets/mockData';
 
-function Sidebar() {
+function Sidebar({ activePath }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-links">
@@ -10,7 +10,7 @@ function Sidebar() {
             key={`${item.label}-${item.path}`}
             to={item.path}
             end={item.path === '/admin'}
-            className={({ isActive }) => (isActive ? 'active' : '')}
+            className={({ isActive }) => (isActive || item.path === activePath ? 'active' : '')}
           >
             {item.label}
           </NavLink>

@@ -8,6 +8,7 @@ import ReviewItemPage from './pages/ReviewItemPage';
 import ItemDetailsPage from './pages/ItemDetailsPage';
 import AdminItemsStatusPage from './pages/AdminItemsStatusPage';
 import AdminSettingsPage from './pages/AdminSettingsPage';
+import ProfilePage from './pages/ProfilePage';
 import { isAdminUser } from './services/session';
 
 function RequireAdmin({ children }) {
@@ -23,6 +24,7 @@ function App() {
       <Route path="/search" element={<SearchItemsPage />} />
       <Route path="/report" element={<ReportItemPage />} />
       <Route path="/items/:id" element={<ItemDetailsPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
       <Route path="/admin" element={<RequireAdmin><AdminDashboardPage /></RequireAdmin>} />
       <Route path="/admin/pending" element={<RequireAdmin><AdminItemsStatusPage type="pending" /></RequireAdmin>} />
       <Route path="/admin/approved" element={<RequireAdmin><AdminItemsStatusPage type="approved" /></RequireAdmin>} />

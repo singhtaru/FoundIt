@@ -33,12 +33,23 @@ function ReviewItemPage() {
     }
   };
 
+  const isPending = item?.status === 'Pending';
+  const isApproved = item?.status === 'Approved';
+  const isClaimed = item?.status === 'Claimed';
+  const isRejected = item?.status === 'Rejected';
+  const canShowClaimPanel = isApproved || isClaimed;
+  const sidebarActivePath = item?.status === 'Approved'
+    ? '/admin/approved'
+    : item?.status === 'Claimed'
+      ? '/admin/claimed'
+      : '/admin/pending';
+
   if (!item) {
     return (
       <main className="admin-page">
         <Navbar admin />
         <div className="admin-layout">
-          <Sidebar />
+          <Sidebar activePath="/admin/pending" />
           <section className="admin-content">
             <p>Loading item...</p>
           </section>
@@ -52,7 +63,7 @@ function ReviewItemPage() {
       <Navbar admin />
 
       <div className="admin-layout">
-        <Sidebar />
+        <Sidebar activePath={sidebarActivePath} />
 
         <section className="admin-content">
           <div className="section-heading">
@@ -108,33 +119,50 @@ function ReviewItemPage() {
             </div>
 
             <div className="review-actions">
-              <Button onClick={() => updateStatus('Approved')}>Approve Item</Button>
-              <Button variant="secondary" onClick={() => updateStatus('Claimed')}>Mark Claimed</Button>
-              <Button variant="danger" onClick={() => updateStatus('Rejected')}>Reject Item</Button>
+              {isPending && (
+                <>
+                  <Button onClick={() => updateStatus('Approved')}>Approve Item</Button>
+                  <Button variant="danger" onClick={() => updateStatus('Rejected')}>Reject Item</Button>
+                </>
+              )}
+
+              {isApproved && (
+                <Button variant="secondary" onClick={() => updateStatus('Claimed')}>Mark Claimed</Button>
+              )}
+
+              {isRejected && (
+                <Button onClick={() => updateStatus('Approved')}>Approve Item</Button>
+              )}
+
+              {isClaimed && (
+                <p className="feedback-banner success">This item is already marked as claimed.</p>
+              )}
             </div>
 
-            <section className="claim-panel">
-              <div className="section-heading small no-margin">
-                <div>
-                  <h2>Claim Requests</h2>
-                  <p>Review member-submitted ownership notes before approving a handoff.</p>
+            {canShowClaimPanel && (
+              <section className="claim-panel">
+                <div className="section-heading small no-margin">
+                  <div>
+                    <h2>Claim Requests</h2>
+                    <p>Review member-submitted ownership notes before approving a handoff.</p>
+                  </div>
                 </div>
-              </div>
 
-              {item.claimRequests?.length ? (
-                <div className="claim-list">
-                  {item.claimRequests.map((claim) => (
-                    <article key={`${claim.userId}-${claim.createdAt}`} className="claim-list-item">
-                      <strong>{claim.userName}</strong>
-                      {claim.userEmail && <span>{claim.userEmail}</span>}
-                      <p>{claim.message || 'No supporting note was added.'}</p>
-                    </article>
-                  ))}
-                </div>
-              ) : (
-                <p className="feedback-banner">No claim requests have been raised for this item yet.</p>
-              )}
-            </section>
+                {item.claimRequests?.length ? (
+                  <div className="claim-list">
+                    {item.claimRequests.map((claim) => (
+                      <article key={`${claim.userId}-${claim.createdAt}`} className="claim-list-item">
+                        <strong>{claim.userName}</strong>
+                        {claim.userEmail && <span>{claim.userEmail}</span>}
+                        <p>{claim.message || 'No supporting note was added.'}</p>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="feedback-banner">No claim requests have been raised for this item yet.</p>
+                )}
+              </section>
+            )}
           </article>
         </section>
       </div>

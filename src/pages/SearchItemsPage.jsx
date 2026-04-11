@@ -9,7 +9,9 @@ import { categories, items as mockItems, locations } from '../assets/mockData';
 import { itemsApi } from '../services/api';
 import { formatItemDate, normalizeMockItem } from '../services/itemUtils';
 
-const fallbackItems = mockItems.map(normalizeMockItem);
+const fallbackItems = mockItems
+  .map(normalizeMockItem)
+  .filter((item) => String(item.status || '').toLowerCase() === 'approved');
 
 function SearchItemsPage() {
   const locationState = useLocation();
@@ -32,16 +34,18 @@ function SearchItemsPage() {
   });
 
   const loadItems = async (params = {}) => {
+    const approvedOnlyParams = { ...params, status: 'Approved' };
+
     try {
-      const response = await itemsApi.getItems(params);
+      const response = await itemsApi.getItems(approvedOnlyParams);
       const nextItems = Array.isArray(response.data) && response.data.length > 0
         ? response.data
-        : filterFallbackItems(params);
+        : filterFallbackItems(approvedOnlyParams);
 
       setItems(nextItems);
     } catch (error) {
       console.error('Failed to load search items:', error);
-      setItems(filterFallbackItems(params));
+      setItems(filterFallbackItems(approvedOnlyParams));
     }
   };
 

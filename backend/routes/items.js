@@ -52,14 +52,56 @@ function normalizeClaimMessage(message) {
 }
 
 function isClaimableStatus(status) {
-  return String(status || '').toLowerCase() === 'pending';
+  return String(status || '').toLowerCase() === 'approved';
+}
+
+function shouldExposeClaims(status) {
+  const normalized = String(status || '').toLowerCase();
+  return normalized === 'approved' || normalized === 'claimed';
+}
+
+function sanitizeClaimRequests(item, users = []) {
+  const reporterId = String(item?.reporter?._id || item?.reporter || '');
+  const hasUsers = Array.isArray(users) && users.length > 0;
+  const claims = Array.isArray(item?.claimRequests) ? item.claimRequests : [];
+
+  return claims.filter((entry) => {
+    const claimantId = String(entry?.userId || '').trim();
+    const message = String(entry?.message || '').trim();
+
+    if (!claimantId || !message) {
+      return false;
+    }
+
+    if (claimantId === reporterId) {
+      return false;
+    }
+
+    if (hasUsers) {
+      const userExists = users.some((user) => String(user._id) === claimantId);
+      if (!userExists) {
+        return false;
+      }
+    }
+
+    return true;
+  }).map((entry) => ({
+    ...entry,
+    userId: String(entry.userId),
+    message: String(entry.message || '').trim(),
+  }));
 }
 
 const toPlainItem = (itemDoc) => {
   const item = itemDoc.toObject ? itemDoc.toObject() : itemDoc;
+  const claimRequests = shouldExposeClaims(item.status)
+    ? sanitizeClaimRequests(item)
+    : [];
+
   return {
     ...item,
     _id: String(item._id),
+    claimRequests,
     reporter: item.reporter
       ? {
           _id: String(item.reporter._id),
@@ -77,7 +119,7 @@ const withReporter = (item, users) => {
   return {
     ...item,
     _id: String(item._id),
-    claimRequests: Array.isArray(item.claimRequests) ? item.claimRequests : [],
+    claimRequests: shouldExposeClaims(item.status) ? sanitizeClaimRequests(item, users) : [],
     reporter: reporter
       ? { _id: String(reporter._id), name: reporter.name, email: reporter.email }
       : item.reporter && item.reporter.name
@@ -280,6 +322,11 @@ router.put('/:id', auth, adminAuth, async (req, res) => {
         }
 
         item.status = status;
+        if (!shouldExposeClaims(status)) {
+          item.claimRequests = [];
+        } else {
+          item.claimRequests = sanitizeClaimRequests(item);
+        }
         await item.save();
 
         const populatedItem = await Item.findById(item._id).populate('reporter', 'name email');
@@ -300,6 +347,11 @@ router.put('/:id', auth, adminAuth, async (req, res) => {
     }
 
     store.items[index].status = status;
+    if (!shouldExposeClaims(status)) {
+      store.items[index].claimRequests = [];
+    } else {
+      store.items[index].claimRequests = sanitizeClaimRequests(store.items[index], store.users);
+    }
     store.items[index].updatedAt = new Date().toISOString();
     await writeStore(store);
 
@@ -337,7 +389,7 @@ router.post('/:id/claims', auth, async (req, res) => {
         }
 
         if (!isClaimableStatus(item.status)) {
-          return res.status(400).json({ message: 'Claims are only allowed while an item is pending review.' });
+          return res.status(400).json({ message: 'Claims are only allowed for approved items.' });
         }
 
         if (String(item.reporter) === String(req.user.id)) {
@@ -382,7 +434,7 @@ router.post('/:id/claims', auth, async (req, res) => {
     }
 
     if (!isClaimableStatus(store.items[itemIndex].status)) {
-      return res.status(400).json({ message: 'Claims are only allowed while an item is pending review.' });
+      return res.status(400).json({ message: 'Claims are only allowed for approved items.' });
     }
 
     if (String(store.items[itemIndex].reporter) === String(req.user.id)) {
@@ -427,7 +479,7 @@ router.delete('/:id/claims/me', auth, async (req, res) => {
           return res.status(404).json({ message: 'Item not found' });
         }
 
-        if (['Approved', 'Claimed'].includes(item.status)) {
+        if (['Claimed'].includes(item.status)) {
           return res.status(400).json({ message: 'This claim request can no longer be removed.' });
         }
 
@@ -457,7 +509,7 @@ router.delete('/:id/claims/me', auth, async (req, res) => {
       return res.status(404).json({ message: 'Item not found' });
     }
 
-    if (['Approved', 'Claimed'].includes(store.items[itemIndex].status)) {
+    if (['Claimed'].includes(store.items[itemIndex].status)) {
       return res.status(400).json({ message: 'This claim request can no longer be removed.' });
     }
 

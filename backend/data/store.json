@@ -242,6 +242,33 @@
       "role": "student",
       "createdAt": "2026-04-11T13:26:58.797Z",
       "updatedAt": "2026-04-11T13:26:58.797Z"
+    },
+    {
+      "_id": "1c4817b8-ee22-48dd-8ed1-8bf07b5d35d6",
+      "name": "Claim Approved User",
+      "email": "claim.approved.20260411195608@example.com",
+      "password": "$2a$10$f.cqiuATBSKtoBvzs.nynuxTHv7.BrfRXkrmjPYi/D.79j6gwqRvC",
+      "role": "student",
+      "createdAt": "2026-04-11T14:26:08.796Z",
+      "updatedAt": "2026-04-11T14:26:08.796Z"
+    },
+    {
+      "_id": "af0b7ac8-95c4-416f-8b4e-01b7d71f1d16",
+      "name": "Owner Approved",
+      "email": "owner.approved.20260411195636@example.com",
+      "password": "$2a$10$razdnaJE0kjYGpeIheudNemrWluvyXnKhM0WAqOImzi7ecZ/OR4sm",
+      "role": "student",
+      "createdAt": "2026-04-11T14:26:36.423Z",
+      "updatedAt": "2026-04-11T14:26:36.424Z"
+    },
+    {
+      "_id": "a76ce2f9-dee8-4454-8e95-7b6bfdacb35d",
+      "name": "Claimer Approved",
+      "email": "claimer.approved.20260411195636@example.com",
+      "password": "$2a$10$BFTtakXgBPeOSbAxg4mJzOXaALsvFAzaIZINp6nAF5.btNt5i.Kw.",
+      "role": "student",
+      "createdAt": "2026-04-11T14:26:36.775Z",
+      "updatedAt": "2026-04-11T14:26:36.775Z"
     }
   ],
   "items": [
@@ -277,12 +304,12 @@
       "description": "Wireless earbuds case found near hostel gate.",
       "location": "Hostel Block A",
       "category": "Electronics",
-      "status": "Approved",
+      "status": "Claimed",
       "image": "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?auto=format&fit=crop&w=800&q=80",
       "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
       "reporterEmail": "test.user@vit.ac.in",
       "createdAt": "2026-04-08T11:20:00.000Z",
-      "updatedAt": "2026-04-11T13:08:06.691Z",
+      "updatedAt": "2026-04-11T14:21:21.525Z",
       "claimRequests": [
         {
           "userId": "6c234617-8618-4a92-a665-ac1bc0b94d68",
@@ -376,7 +403,7 @@
       "location": "Library",
       "category": "Electronics",
       "date": "2026-04-11T00:00:00.000Z",
-      "status": "Pending",
+      "status": "Approved",
       "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=800&q=80",
       "reporter": "b01391df-0328-4d0e-bc33-61146ce9e151",
       "reporterEmail": "fullrun.20260411182922@example.com",
@@ -390,7 +417,7 @@
         }
       ],
       "createdAt": "2026-04-11T12:59:23.302Z",
-      "updatedAt": "2026-04-11T12:59:23.345Z"
+      "updatedAt": "2026-04-11T14:35:56.127Z"
     }
   ]
 }

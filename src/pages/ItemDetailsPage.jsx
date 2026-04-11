@@ -6,7 +6,7 @@ import Button from '../components/Button';
 import { items as mockItems } from '../assets/mockData';
 import { itemsApi } from '../services/api';
 import { formatItemDate, getItemImageUrl, normalizeMockItem } from '../services/itemUtils';
-import { getStoredUser, hasMemberAccess } from '../services/session';
+import { getStoredUser, hasMemberAccess, isAdminUser } from '../services/session';
 
 const fallbackItems = mockItems.map(normalizeMockItem);
 
@@ -20,6 +20,7 @@ function ItemDetailsPage() {
   const [claimSuccess, setClaimSuccess] = useState('');
   const [claimSubmitting, setClaimSubmitting] = useState(false);
   const memberAccess = hasMemberAccess();
+  const adminUser = isAdminUser();
   const user = getStoredUser();
 
   const existingClaim = useMemo(() => {
@@ -30,17 +31,21 @@ function ItemDetailsPage() {
     return item.claimRequests.find((entry) => entry.userId === user.id);
   }, [item, user]);
 
-  const canWithdrawClaim = Boolean(existingClaim && item && !['Approved', 'Claimed'].includes(item.status));
-  const isClaimableItem = item?.status === 'Pending';
+  const canWithdrawClaim = Boolean(existingClaim && item && item.status !== 'Claimed');
+  const isClaimableItem = item?.status === 'Approved';
 
   useEffect(() => {
     const loadItem = async () => {
       try {
         const response = await itemsApi.getItem(id);
+        if (!adminUser && response.data?.status !== 'Approved') {
+          setError('This item is not available on the user portal yet.');
+          return;
+        }
         setItem(response.data);
       } catch (apiError) {
         const fallbackItem = fallbackItems.find((entry) => entry._id === id);
-        if (fallbackItem) {
+        if (fallbackItem && (adminUser || fallbackItem.status === 'Approved')) {
           setItem(fallbackItem);
           return;
         }
@@ -62,7 +67,7 @@ function ItemDetailsPage() {
     }
 
     if (!isClaimableItem) {
-      setClaimError('Claim requests are only open while this item is pending review.');
+      setClaimError('Claim requests are only open for approved items.');
       return;
     }
 
@@ -190,7 +195,7 @@ function ItemDetailsPage() {
                     {memberAccess
                       ? isClaimableItem
                         ? 'If this item is yours, send a short claim note so the admin team can verify it.'
-                        : 'Claim requests are closed for this item because it is no longer pending.'
+                        : 'Claim requests are closed for this item until it is approved by admin.'
                       : 'Guests can browse details, but only signed-in members can raise a claim request.'}
                   </p>
                 </div>
@@ -215,7 +220,7 @@ function ItemDetailsPage() {
                   {claimError && <p className="feedback-banner">{claimError}</p>}
                   {claimSuccess && <p className="feedback-banner success">{claimSuccess}</p>}
                   {!isClaimableItem && !existingClaim && (
-                    <p className="feedback-banner">This item is {String(item.status || '').toLowerCase()}, so new claim requests are disabled.</p>
+                    <p className="feedback-banner">This item is {String(item.status || '').toLowerCase()}, so new claim requests are disabled for now.</p>
                   )}
                   {existingClaim ? (
                     <div className="claim-summary-card">
