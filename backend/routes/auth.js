@@ -12,6 +12,10 @@ router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Name, email, and password are required' });
+    }
+
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: 'User already exists' });
@@ -36,7 +40,10 @@ router.post('/signup', async (req, res) => {
     };
 
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
+      if (err) {
+        console.error('JWT sign error:', err.message);
+        return res.status(500).json({ message: 'Failed to create authentication token' });
+      }
       res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
     });
   } catch (err) {
@@ -52,6 +59,10 @@ router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
@@ -70,7 +81,10 @@ router.post('/signin', async (req, res) => {
     };
 
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-      if (err) throw err;
+      if (err) {
+        console.error('JWT sign error:', err.message);
+        return res.status(500).json({ message: 'Failed to create authentication token' });
+      }
       res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
     });
   } catch (err) {
