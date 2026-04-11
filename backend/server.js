@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 
@@ -10,6 +10,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET'];
+const missingEnvVars = requiredEnvVars.filter((key) => !process.env[key]);
+
+if (missingEnvVars.length > 0) {
+  console.error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
+  process.exit(1);
+}
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
@@ -23,27 +31,20 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-async function startServer() {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-
+const startServer = async () => {
   try {
-    if (!MONGO_URI) {
-      throw new Error('MONGO_URI is missing in .env');
-    }
-
-    await mongoose.connect(MONGO_URI, {
+    await mongoose.connect(process.env.MONGO_URI, {
       serverSelectionTimeoutMS: 5000,
     });
     console.log('MongoDB connected');
-  } catch (err) {
-    console.error(`MongoDB unavailable, using local fallback store: ${err.message}`);
-  }
-}
 
-mongoose.connection.on('error', (err) => {
-  console.error(`MongoDB connection error: ${err.message}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed to start backend:', err.message);
+    process.exit(1);
+  }
+};
 
 startServer();
