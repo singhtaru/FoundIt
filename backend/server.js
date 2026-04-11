@@ -24,21 +24,26 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 async function startServer() {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+
   try {
     if (!MONGO_URI) {
       throw new Error('MONGO_URI is missing in .env');
     }
 
-    await mongoose.connect(MONGO_URI);
-    console.log('MongoDB connected');
-
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+    await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
     });
+    console.log('MongoDB connected');
   } catch (err) {
-    console.error(`Failed to start server: ${err.message}`);
-    process.exit(1);
+    console.error(`MongoDB unavailable, using local fallback store: ${err.message}`);
   }
 }
+
+mongoose.connection.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err.message}`);
+});
 
 startServer();

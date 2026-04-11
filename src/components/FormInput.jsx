@@ -13,8 +13,8 @@ function FormInput({
       {as === 'textarea' ? (
         <textarea className="form-control textarea" placeholder={placeholder} {...props} />
       ) : as === 'select' ? (
-        <select className="form-control" defaultValue="" {...props}>
-          <option value="" disabled>
+        <select className="form-control" {...props}>
+          <option value="">
             {placeholder}
           </option>
           {options.map((option) => (

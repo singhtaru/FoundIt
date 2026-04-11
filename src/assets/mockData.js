@@ -20,19 +20,19 @@ const itemImages = {
 export const items = [
   {
     id: 1,
-    name: 'Black Backpack',
+    name: 'Black Campus Backpack',
     location: 'Library',
     status: 'Found',
     category: 'Bags',
     date: '2026-04-08',
     image: itemImages.backpack,
-    description: 'Black leather backpack with notebooks and a water bottle.',
+    description: 'Black backpack with notebooks, a charger, and an ID-card pouch.',
     reporter: 'John Doe',
     reporterEmail: 'johndoe23@vit.ac.in',
   },
   {
     id: 2,
-    name: 'Smartphone',
+    name: 'Dark Smartphone',
     location: 'Cafeteria',
     status: 'Found',
     category: 'Electronics',
@@ -44,7 +44,7 @@ export const items = [
   },
   {
     id: 3,
-    name: 'Car Keys',
+    name: 'Car Key Set',
     location: 'Parking Lot',
     status: 'Claimed',
     category: 'Accessories',
@@ -56,7 +56,7 @@ export const items = [
   },
   {
     id: 4,
-    name: 'Water Bottle',
+    name: 'Steel Water Bottle',
     location: 'Gym',
     status: 'Found',
     category: 'Daily Use',
@@ -68,7 +68,7 @@ export const items = [
   },
   {
     id: 5,
-    name: 'Eyeglasses',
+    name: 'Black Frame Eyeglasses',
     location: 'Lecture Hall',
     status: 'Pending',
     category: 'Accessories',
@@ -80,7 +80,7 @@ export const items = [
   },
   {
     id: 6,
-    name: 'Book',
+    name: 'Engineering Notebook',
     location: 'Library',
     status: 'Approved',
     category: 'Stationery',
@@ -92,7 +92,7 @@ export const items = [
   },
   {
     id: 7,
-    name: 'Wireless Earbuds',
+    name: 'Wireless Earbuds Case',
     location: 'Hostel Block A',
     status: 'Pending',
     category: 'Electronics',
@@ -104,7 +104,7 @@ export const items = [
   },
   {
     id: 8,
-    name: 'Calculator',
+    name: 'Scientific Calculator',
     location: 'Lab Complex',
     status: 'Approved',
     category: 'Electronics',
@@ -142,8 +142,8 @@ export const adminStats = [
 
 export const adminMenu = [
   { label: 'Dashboard', path: '/admin' },
-  { label: 'Pending Approvals', path: '/admin/review/1' },
-  { label: 'Approved Items', path: '/admin' },
-  { label: 'Claimed Items', path: '/admin' },
-  { label: 'Settings', path: '/admin' },
+  { label: 'Pending Approvals', path: '/admin/pending' },
+  { label: 'Approved Items', path: '/admin/approved' },
+  { label: 'Claimed Items', path: '/admin/claimed' },
+  { label: 'Settings', path: '/admin/settings' },
 ];

@@ -1,35 +1,62 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
-import { categories, locations } from '../assets/mockData';
+import { categories, items as mockItems, locations } from '../assets/mockData';
 import { itemsApi } from '../services/api';
+import { formatItemDate, normalizeMockItem } from '../services/itemUtils';
+
+const fallbackItems = mockItems.map(normalizeMockItem);
 
 function SearchItemsPage() {
+  const locationState = useLocation();
+  const initialSearch = locationState.state?.initialSearch || '';
   const [items, setItems] = useState([]);
-  const [filters, setFilters] = useState({ location: '', category: '', search: '' });
+  const [filters, setFilters] = useState({ location: '', category: '', search: initialSearch, startDate: '', endDate: '' });
+
+  const filterFallbackItems = (params = {}) => fallbackItems.filter((item) => {
+    const matchesLocation = !params.location || item.location === params.location;
+    const matchesCategory = !params.category || item.category === params.category;
+    const term = String(params.search || '').trim().toLowerCase();
+    const matchesSearch = !term
+      || item.name.toLowerCase().includes(term)
+      || item.description.toLowerCase().includes(term);
+    const itemDate = new Date(item.date || item.createdAt);
+    const matchesStartDate = !params.startDate || itemDate >= new Date(params.startDate);
+    const matchesEndDate = !params.endDate || itemDate <= new Date(`${params.endDate}T23:59:59`);
+
+    return matchesLocation && matchesCategory && matchesSearch && matchesStartDate && matchesEndDate;
+  });
 
   const loadItems = async (params = {}) => {
     try {
       const response = await itemsApi.getItems(params);
-      setItems(response.data);
+      const nextItems = Array.isArray(response.data) && response.data.length > 0
+        ? response.data
+        : filterFallbackItems(params);
+
+      setItems(nextItems);
     } catch (error) {
       console.error('Failed to load search items:', error);
+      setItems(filterFallbackItems(params));
     }
   };
 
   useEffect(() => {
-    loadItems();
-  }, []);
+    loadItems({ location: '', category: '', search: initialSearch, startDate: '', endDate: '' });
+  }, [initialSearch]);
+
+  const reportedMessage = locationState.state?.message;
 
   const applyFilters = () => {
     loadItems(filters);
   };
 
   const clearFilters = () => {
-    const reset = { location: '', category: '', search: '' };
+    const reset = { location: '', category: '', search: '', startDate: '', endDate: '' };
     setFilters(reset);
     loadItems(reset);
   };
@@ -60,14 +87,25 @@ function SearchItemsPage() {
             value={filters.category}
             onChange={(event) => setFilters((prev) => ({ ...prev, category: event.target.value }))}
           />
-          <FormInput label="Date Range" type="date" placeholder="Start date" />
-          <FormInput type="date" placeholder="End date" />
+          <FormInput
+            label="Date Found From"
+            type="date"
+            value={filters.startDate}
+            onChange={(event) => setFilters((prev) => ({ ...prev, startDate: event.target.value }))}
+          />
+          <FormInput
+            label="Date Found To"
+            type="date"
+            value={filters.endDate}
+            onChange={(event) => setFilters((prev) => ({ ...prev, endDate: event.target.value }))}
+          />
 
           <Button onClick={applyFilters}>Apply Filters</Button>
           <Button variant="ghost" onClick={clearFilters}>Clear Filters</Button>
         </aside>
 
         <div className="search-results">
+          {reportedMessage && <p className="feedback-banner success">{reportedMessage}</p>}
           <div className="section-heading">
             <div>
               <h2>Search Results</h2>

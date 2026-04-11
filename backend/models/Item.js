@@ -38,6 +38,29 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  claimRequests: [
+    {
+      userId: {
+        type: String,
+        required: true,
+      },
+      userName: {
+        type: String,
+        required: true,
+      },
+      userEmail: {
+        type: String,
+      },
+      message: {
+        type: String,
+        default: '',
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 }, {
   timestamps: true,
 });

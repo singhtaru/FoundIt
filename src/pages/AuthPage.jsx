@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import { authApi } from '../services/api';
+import { clearSession, getStoredUser, hasMemberAccess, setGuestSession } from '../services/session';
 
 function AuthPage() {
   const [mode, setMode] = useState('signin');
+  const [loginType, setLoginType] = useState('user');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,7 +16,39 @@ function AuthPage() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (hasMemberAccess()) {
+      const existingUser = getStoredUser();
+      navigate(existingUser?.role === 'admin' ? '/admin' : '/home', { replace: true });
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    if (location.state?.reason === 'members-only') {
+      setError(location.state.message || 'Sign in to continue.');
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    setError('');
+    if (mode === 'signup') {
+      setLoginType('user');
+    }
+    setFormData((prev) => ({
+      ...prev,
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    }));
+  }, [mode]);
+
+  useEffect(() => {
+    setError('');
+  }, [loginType]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,7 +59,21 @@ function AuthPage() {
     event.preventDefault();
     setError('');
 
-    if (mode === 'signup' && formData.password !== formData.confirmPassword) {
+    const name = formData.name.trim();
+    const email = formData.email.trim().toLowerCase();
+    const password = formData.password;
+
+    if (mode === 'signup' && !name) {
+      setError('Full name is required.');
+      return;
+    }
+
+    if (!email || !password) {
+      setError('Email and password are required.');
+      return;
+    }
+
+    if (mode === 'signup' && password !== formData.confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
@@ -33,16 +81,17 @@ function AuthPage() {
     setLoading(true);
     try {
       const payload = mode === 'signup'
-        ? { name: formData.name, email: formData.email, password: formData.password }
-        : { email: formData.email, password: formData.password };
+        ? { name, email, password }
+        : { email, password, loginType };
 
       const response = mode === 'signup'
         ? await authApi.signup(payload)
         : await authApi.signin(payload);
 
+      clearSession();
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      navigate('/home');
+      navigate(response.data.user?.role === 'admin' ? '/admin' : '/home');
     } catch (apiError) {
       setError(apiError.response?.data?.message || 'Authentication failed.');
     } finally {
@@ -75,15 +124,36 @@ function AuthPage() {
           </div>
           <h2>{mode === 'signin' ? 'Sign In' : 'Create Account'}</h2>
 
+          {mode === 'signin' && (
+            <div className="auth-role-toggle" role="group" aria-label="Login type">
+              <button
+                className={loginType === 'user' ? 'active' : ''}
+                type="button"
+                onClick={() => setLoginType('user')}
+              >
+                User Login
+              </button>
+              <button
+                className={loginType === 'admin' ? 'active' : ''}
+                type="button"
+                onClick={() => setLoginType('admin')}
+              >
+                Admin Login
+              </button>
+            </div>
+          )}
+
           <div className="auth-toggle">
             <button
               className={mode === 'signin' ? 'active' : ''}
+              type="button"
               onClick={() => setMode('signin')}
             >
               Login
             </button>
             <button
               className={mode === 'signup' ? 'active' : ''}
+              type="button"
               onClick={() => setMode('signup')}
             >
               Sign Up
@@ -132,10 +202,21 @@ function AuthPage() {
           </form>
 
           <div className="auth-links">
-            <button onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}>
+            <button type="button" onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}>
               {mode === 'signin' ? 'Need an account?' : 'Already registered?'}
             </button>
-            <Link to="/home">Continue to app</Link>
+            <button
+              type="button"
+              onClick={() => {
+                setGuestSession();
+                navigate('/home');
+              }}
+            >
+              Continue as guest
+            </button>
+          </div>
+          <div className="auth-secondary-link">
+            <Link to="/search">Browse listings first</Link>
           </div>
         </section>
       </div>

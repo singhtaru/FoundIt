@@ -20,9 +20,9 @@ export const authApi = {
 export const itemsApi = {
   getItems: (params) => api.get('/items', { params }),
   getItem: (id) => api.get(`/items/${id}`),
-  createItem: (payload) => api.post('/items', payload, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }),
+  createItem: (payload) => api.post('/items', payload),
+  createClaimRequest: (id, payload) => api.post(`/items/${id}/claims`, payload),
+  deleteMyClaimRequest: (id) => api.delete(`/items/${id}/claims/me`),
   updateItem: (id, payload) => api.put(`/items/${id}`, payload),
   deleteItem: (id) => api.delete(`/items/${id}`),
 };

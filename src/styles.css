@@ -157,6 +157,7 @@ img {
   background: linear-gradient(180deg, #f7fbff, #edf5fb);
   border: 1px solid rgba(148, 163, 184, 0.22);
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+  font-weight: 800;
 }
 
 .avatar-chip.large {
@@ -273,6 +274,10 @@ img {
   margin-top: 0.2rem;
 }
 
+.left-actions {
+  justify-content: flex-start;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -365,6 +370,14 @@ img {
   padding: 1.05rem;
   border-radius: 22px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-card-link {
+  display: block;
+}
+
+.item-meta {
+  font-size: 0.92rem;
 }
 
 .item-card:hover {
@@ -520,6 +533,28 @@ img {
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
+.auth-role-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0 0.8rem;
+}
+
+.auth-role-toggle button {
+  min-height: 42px;
+  border-radius: 12px;
+  color: var(--muted);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+}
+
+.auth-role-toggle button.active {
+  color: var(--teal);
+  border-color: rgba(15, 118, 110, 0.4);
+  background: #ebfbf9;
+}
+
 .auth-form {
   display: grid;
   gap: 1rem;
@@ -537,6 +572,39 @@ img {
 
 .auth-links a {
   color: var(--teal);
+  font-weight: 700;
+}
+
+.auth-secondary-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.auth-secondary-link a {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.session-chip {
+  display: grid;
+  gap: 0.1rem;
+  margin-left: 0.5rem;
+  text-align: right;
+}
+
+.session-chip strong {
+  font-size: 0.92rem;
+}
+
+.session-chip span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.session-action {
+  padding: 0;
+  color: var(--teal);
+  font-size: 0.88rem;
   font-weight: 700;
 }
 
@@ -624,6 +692,10 @@ img {
   border: 2px dashed rgba(148, 163, 184, 0.25);
   border-radius: 22px;
   background: linear-gradient(180deg, rgba(240, 249, 255, 0.6), rgba(235, 250, 248, 0.65));
+}
+
+.upload-area:hover {
+  border-color: rgba(8, 145, 178, 0.35);
 }
 
 .upload-icon {
@@ -782,6 +854,88 @@ td span {
   gap: 1.2rem;
 }
 
+.member-gate {
+  width: min(720px, 100%);
+  margin: 0 auto;
+}
+
+.centered-card {
+  text-align: center;
+}
+
+.feedback-banner {
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(245, 250, 255, 0.85);
+}
+
+.feedback-banner.success {
+  color: #127c48;
+  background: #eafaf0;
+  border-color: rgba(18, 124, 72, 0.15);
+}
+
+.item-detail-card {
+  width: min(960px, 100%);
+  margin: 0 auto;
+}
+
+.item-detail-image {
+  min-height: 320px;
+}
+
+.claim-panel {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.1rem;
+  border-radius: 22px;
+  background: rgba(245, 250, 255, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.member-gate-card,
+.claim-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.claim-summary-card {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.claim-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.claim-list-item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.claim-list-item span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.claim-list-item p {
+  margin: 0.2rem 0 0;
+}
+
+.no-margin {
+  margin-bottom: 0;
+}
+
 .review-hero {
   display: grid;
   grid-template-columns: 290px 1fr;
@@ -804,6 +958,10 @@ td span {
 
 .detail-block {
   margin-bottom: 1rem;
+}
+
+.detail-block.compact {
+  margin-bottom: 0;
 }
 
 .detail-block span,
@@ -868,6 +1026,12 @@ td span {
 @media (max-width: 820px) {
   .topbar {
     flex-wrap: wrap;
+  }
+
+  .session-chip {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
   }
 
   .menu-toggle {

@@ -4,15 +4,9 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import StatusBadge from '../components/StatusBadge';
 import { itemsApi } from '../services/api';
+import { formatItemDate, getItemImageUrl, fallbackItemImage } from '../services/itemUtils';
 
 function AdminDashboardPage() {
-  const fallbackImage = 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80';
-
-  const getImageUrl = (image) => {
-    if (!image) return fallbackImage;
-    return image.startsWith('http') ? image : `http://localhost:5000/${image}`;
-  };
-
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -32,7 +26,7 @@ function AdminDashboardPage() {
     { label: 'Total Reports', value: items.length, tone: 'blue' },
     { label: 'Pending', value: items.filter((item) => item.status === 'Pending').length, tone: 'gold' },
     { label: 'Approved', value: items.filter((item) => item.status === 'Approved').length, tone: 'teal' },
-    { label: 'Claimed', value: items.filter((item) => item.status === 'Claimed').length, tone: 'orange' },
+    { label: 'Claim Requests', value: items.reduce((count, item) => count + (item.claimRequests?.length || 0), 0), tone: 'orange' },
   ]), [items]);
 
   return (
@@ -75,6 +69,7 @@ function AdminDashboardPage() {
                     <th>Item Name</th>
                     <th>Date Reported</th>
                     <th>Location Found</th>
+                    <th>Claims</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -83,10 +78,10 @@ function AdminDashboardPage() {
                     <tr key={item._id}>
                       <td>
                         <img
-                          src={getImageUrl(item.image)}
+                          src={getItemImageUrl(item.image)}
                           alt={item.name}
                           className="table-thumb"
-                          onError={(event) => { event.currentTarget.src = fallbackImage; }}
+                          onError={(event) => { event.currentTarget.src = fallbackItemImage; }}
                         />
                       </td>
                       <td>
@@ -95,8 +90,9 @@ function AdminDashboardPage() {
                         </Link>
                         <span>Found at {item.location}</span>
                       </td>
-                      <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                      <td>{formatItemDate(item)}</td>
                       <td>{item.location}</td>
+                      <td>{item.claimRequests?.length || 0}</td>
                       <td>
                         <StatusBadge status={item.status} />
                       </td>

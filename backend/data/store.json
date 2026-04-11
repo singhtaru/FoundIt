@@ -1,0 +1,396 @@
+{
+  "users": [
+    {
+      "_id": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "name": "Test User",
+      "email": "test.user@vit.ac.in",
+      "password": "$2a$10$M2AGCpRMp7/63vSjY7/ZseW9q2zn6P1dcv/SoSjBNt/23ZHmBfWxu",
+      "role": "student",
+      "createdAt": "2026-04-10T20:03:36.893Z",
+      "updatedAt": "2026-04-10T20:03:36.894Z"
+    },
+    {
+      "_id": "c7e3922b-4fe2-4b07-bdcc-8842f3a81d35",
+      "name": "Recover User",
+      "email": "recover.20260411161735@example.com",
+      "password": "$2a$10$0cCCnba1msmIryL9VmT9we9ZaFLaVgBPLq5vYMAwPTcUnLllit4E.",
+      "role": "student",
+      "createdAt": "2026-04-11T10:47:35.613Z",
+      "updatedAt": "2026-04-11T10:47:35.613Z"
+    },
+    {
+      "_id": "bf1a60c5-4369-4c92-97c3-94af47d946af",
+      "name": "Final Check",
+      "email": "finalcheck.20260411161928@example.com",
+      "password": "$2a$10$geZoXmPiT.YbODjQVFGBguNQkq/BBjHIKREGX34zMJT0QYHCAqFc6",
+      "role": "student",
+      "createdAt": "2026-04-11T10:49:29.098Z",
+      "updatedAt": "2026-04-11T10:49:29.098Z"
+    },
+    {
+      "_id": "75662ac0-f580-4ccd-b40b-a8e7d1edb897",
+      "name": "Product Test",
+      "email": "product.20260411164832@example.com",
+      "password": "$2a$10$1Zlu7vg7BKOU/wDbgHpWeOHgdejDF3GIXmIqgwwtIDCZ.l0/MDOiq",
+      "role": "student",
+      "createdAt": "2026-04-11T11:18:33.047Z",
+      "updatedAt": "2026-04-11T11:18:33.049Z"
+    },
+    {
+      "_id": "fee8d391-6dbb-459c-8327-cd5165eea06a",
+      "name": "Rerun User",
+      "email": "rerun.20260411164958@example.com",
+      "password": "$2a$10$GWrQB7xBbeFD81JfAA4WVOlAt2CJ5dFVE1emopRxn.l4yDURBSDSu",
+      "role": "student",
+      "createdAt": "2026-04-11T11:19:59.030Z",
+      "updatedAt": "2026-04-11T11:19:59.030Z"
+    },
+    {
+      "_id": "d192d4f9-f8ab-46dc-9507-ad7b8a3a1e28",
+      "name": "Report User",
+      "email": "report.20260411165001@example.com",
+      "password": "$2a$10$JEdTjK7T.mGR2e5Gr/cfUu..jCQtD5Aps.cF.CEdm6eYnQd3Qdnra",
+      "role": "student",
+      "createdAt": "2026-04-11T11:20:01.852Z",
+      "updatedAt": "2026-04-11T11:20:01.855Z"
+    },
+    {
+      "_id": "3c3e3607-eda1-4938-a1da-ec48781c7bec",
+      "name": "Claim User",
+      "email": "claim.20260411182503@example.com",
+      "password": "$2a$10$FT3UpzPEi4Qq6sgfYjE4lOLt5lqqGvAaoNCZzQHxQBepo5zMUzKeu",
+      "role": "student",
+      "createdAt": "2026-04-11T12:55:03.695Z",
+      "updatedAt": "2026-04-11T12:55:03.695Z"
+    },
+    {
+      "_id": "b01391df-0328-4d0e-bc33-61146ce9e151",
+      "name": "Full Run User",
+      "email": "fullrun.20260411182922@example.com",
+      "password": "$2a$10$30JgPCpaBvfi/VwHfYERXeAxqKzBVjAU6aKeD8EzM0RWzLypXdSZm",
+      "role": "student",
+      "createdAt": "2026-04-11T12:59:23.092Z",
+      "updatedAt": "2026-04-11T12:59:23.092Z"
+    },
+    {
+      "_id": "d3d1ab11-0101-4d97-b9bd-6ae643be5aec",
+      "name": "Rerun All User",
+      "email": "rerunall.20260411183607@example.com",
+      "password": "$2a$10$7dv4z5t6azBPZqfp1v7FqubMuU2yymTffVq.6xKObeGWN646pCram",
+      "role": "student",
+      "createdAt": "2026-04-11T13:06:07.446Z",
+      "updatedAt": "2026-04-11T13:06:07.446Z"
+    },
+    {
+      "_id": "6c234617-8618-4a92-a665-ac1bc0b94d68",
+      "name": "Shreya Singh",
+      "email": "shreya.singh2023a@vitstudent.ac.in",
+      "password": "$2a$10$hSmEIjFRFHocG5p796ZMX.QT/YK9Iu0wrUnq4RnkLVDtFyqe8Uhmi",
+      "role": "student",
+      "createdAt": "2026-04-11T13:07:42.800Z",
+      "updatedAt": "2026-04-11T13:07:42.800Z"
+    },
+    {
+      "_id": "e4d21cd3-72eb-40a9-8c4c-5a65f79e8f26",
+      "name": "Owner User",
+      "email": "owner.20260411184501@example.com",
+      "password": "$2a$10$BcJNseWtYYQIJjjfBUChEOzdHhRAGxqQTzBn0v8Vr5.W86iyv19WC",
+      "role": "student",
+      "createdAt": "2026-04-11T13:15:01.959Z",
+      "updatedAt": "2026-04-11T13:15:01.959Z"
+    },
+    {
+      "_id": "c52a4ef9-4f78-49d0-b23c-3105b46065d5",
+      "name": "Claimer User",
+      "email": "claimer.20260411184501@example.com",
+      "password": "$2a$10$UR3aUMJZ2gWDPfeNkOChzuJn14h0r7sthBBjej0YdaCcRRvLpTyPO",
+      "role": "student",
+      "createdAt": "2026-04-11T13:15:02.259Z",
+      "updatedAt": "2026-04-11T13:15:02.259Z"
+    },
+    {
+      "_id": "461c3211-7a97-4a4d-96fa-4655f4423d4e",
+      "name": "Seed Admin",
+      "email": "seed.admin@example.com",
+      "password": "$2a$10$bu0bUJ1vPjIgAIWCiCIVbOcUI4hUUP/WiOoMjM053ilT3cHEw.xA6",
+      "role": "student",
+      "createdAt": "2026-04-11T13:20:31.222Z",
+      "updatedAt": "2026-04-11T13:20:31.223Z"
+    },
+    {
+      "_id": "399ba278-66cb-4f19-98db-253583f8114a",
+      "name": "FoundIt Admin",
+      "email": "admin@foundit.vit",
+      "password": "$2a$10$14KKuYRfJQiq5NrkbdmU3utF5tV3KVc3GN67IRvK/yQp6N8Bcl/LW",
+      "role": "admin",
+      "createdAt": "2026-04-11T13:21:57.215Z",
+      "updatedAt": "2026-04-11T13:21:57.216Z"
+    },
+    {
+      "_id": "36a39fe2-b0a1-4ec6-9da4-6bbc69fcfaf7",
+      "name": "Student Test",
+      "email": "student.20260411185305@example.com",
+      "password": "$2a$10$vXCGtPpXc6V/zcYLepB.Q.3ePnO50RzcArVdNNU6mBftiuh6IBCfu",
+      "role": "student",
+      "createdAt": "2026-04-11T13:23:06.046Z",
+      "updatedAt": "2026-04-11T13:23:06.046Z"
+    },
+    {
+      "_id": "d17e11aa-142f-472c-8828-ab55a1ae3352",
+      "name": "Rerun User",
+      "email": "rerun.user.20260411185434@example.com",
+      "password": "$2a$10$i.jxq0U/v9iUHxcyG4ibQ.Usy3gkIfcK2YuOoW.MuBeK9y7KCFv2.",
+      "role": "student",
+      "createdAt": "2026-04-11T13:24:34.538Z",
+      "updatedAt": "2026-04-11T13:24:34.538Z"
+    },
+    {
+      "_id": "732a6612-6a1b-4fbe-8909-4955fbc74ca9",
+      "name": "Rerun Claimer",
+      "email": "rerun.claimer.20260411185434@example.com",
+      "password": "$2a$10$iGvYWqZrifM6H6uaXpFhw.pnhfIrRrEC8B28LUZn3ha/OtVw2Sou6",
+      "role": "student",
+      "createdAt": "2026-04-11T13:24:37.159Z",
+      "updatedAt": "2026-04-11T13:24:37.159Z"
+    },
+    {
+      "_id": "1fc63ca4-f3e8-4896-8346-3456447d5985",
+      "name": "Rerun AfterApprove",
+      "email": "rerun.afterapprove.20260411185434@example.com",
+      "password": "$2a$10$qEPzqId8836nFOcqL4KM/.FvCCxRxVSCDZCkFpa6mx2fYg0GUCEhC",
+      "role": "student",
+      "createdAt": "2026-04-11T13:24:39.004Z",
+      "updatedAt": "2026-04-11T13:24:39.004Z"
+    },
+    {
+      "_id": "97471e41-0391-48d5-a49c-8ba1e6449cde",
+      "name": "Rerun User",
+      "email": "rerun.user.20260411185454@example.com",
+      "password": "$2a$10$tjH.pRt54JRiGFVUWIbOlOO2sPhTwwB297UXz87SdpfOhISbkrlHG",
+      "role": "student",
+      "createdAt": "2026-04-11T13:24:54.878Z",
+      "updatedAt": "2026-04-11T13:24:54.878Z"
+    },
+    {
+      "_id": "f766eaf8-5ea5-40d1-9c45-6b6b83ffeb63",
+      "name": "After User",
+      "email": "rerun.after.20260411185454@example.com",
+      "password": "$2a$10$QGpsy9DFAzCqNltKS.Fr3e0MBgKpJRrxuGUnd5drxmbq91ndQOmY6",
+      "role": "student",
+      "createdAt": "2026-04-11T13:24:56.452Z",
+      "updatedAt": "2026-04-11T13:24:56.452Z"
+    },
+    {
+      "_id": "42585c01-aeb9-4663-9950-bb8be6ef4d2c",
+      "name": "Rerun User",
+      "email": "rerun.user.20260411185603@example.com",
+      "password": "$2a$10$KUjqML0GK.yNf6E.lZhRKeZ5fVxyywE7/LhdLg105DIWHWOsQJh0C",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:03.946Z",
+      "updatedAt": "2026-04-11T13:26:03.946Z"
+    },
+    {
+      "_id": "076c53ce-349b-4d46-8ec6-8999a0dad6bc",
+      "name": "Rerun Claimer",
+      "email": "rerun.claimer.20260411185603@example.com",
+      "password": "$2a$10$mUCqZY2H/DCOwsvf1qxjCeavxPmb4SH86O463jwGpy9jA6MfvUeMq",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:05.729Z",
+      "updatedAt": "2026-04-11T13:26:05.729Z"
+    },
+    {
+      "_id": "9b2ef350-93cb-4b49-9f1f-5196e039390e",
+      "name": "After Approve User",
+      "email": "rerun.after.20260411185603@example.com",
+      "password": "$2a$10$2E4p1RNH0JL0.5bcG4W0cum88aeOzXLxYOG1NiTxsdi3jo9Tf.0d2",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:06.949Z",
+      "updatedAt": "2026-04-11T13:26:06.949Z"
+    },
+    {
+      "_id": "57b6e261-df58-41d7-8d15-7ae772b41c66",
+      "name": "Rerun User",
+      "email": "rerun.user.20260411185640@example.com",
+      "password": "$2a$10$BiutdfMXv4/agJb2/XLLG./Guq79JrEpOTRYNvW4WT7wkMkUFWewW",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:40.995Z",
+      "updatedAt": "2026-04-11T13:26:40.995Z"
+    },
+    {
+      "_id": "bfc3f5c7-89b5-488a-80b2-8fe6f021e70c",
+      "name": "Rerun Claimer",
+      "email": "rerun.claimer.20260411185640@example.com",
+      "password": "$2a$10$U.MpCttJn0DJHwRuxFscnex/AVi5b61iaeSdmYMgPOdVNceGJYc5y",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:41.188Z",
+      "updatedAt": "2026-04-11T13:26:41.188Z"
+    },
+    {
+      "_id": "a68af7a7-d6d3-43ce-ad70-a718390e2b2e",
+      "name": "After Approve User",
+      "email": "rerun.after.20260411185640@example.com",
+      "password": "$2a$10$wJFOCO.9fCSCINr/IDL0Vutkkyb0iN82t4V15kpas52aMTrlSWSYC",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:42.557Z",
+      "updatedAt": "2026-04-11T13:26:42.557Z"
+    },
+    {
+      "_id": "63c7221b-a607-42ee-8b9e-a3dfebd7484c",
+      "name": "Post Approve User",
+      "email": "rerun.postapprove.20260411185658@example.com",
+      "password": "$2a$10$jIFDrkCqFTRUjND0nPuulOTNRdrkbdD8OtOkImsBpPJGTP7vtF96K",
+      "role": "student",
+      "createdAt": "2026-04-11T13:26:58.797Z",
+      "updatedAt": "2026-04-11T13:26:58.797Z"
+    }
+  ],
+  "items": [
+    {
+      "_id": "d290b81e-3256-4881-909d-5e008ee026f8",
+      "name": "Blue Bottle",
+      "description": "Steel bottle near reading hall",
+      "location": "Library",
+      "category": "Accessories",
+      "status": "Pending",
+      "image": null,
+      "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "reporterEmail": "test.user@vit.ac.in",
+      "createdAt": "2026-04-10T20:05:34.143Z",
+      "updatedAt": "2026-04-10T20:05:34.143Z"
+    },
+    {
+      "_id": "5e80bf4f-2488-4d12-b838-0f21f9598d65",
+      "name": "Black Backpack",
+      "description": "Black backpack with notebooks and charger.",
+      "location": "Library",
+      "category": "Bags",
+      "status": "Found",
+      "image": "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?auto=format&fit=crop&w=800&q=80",
+      "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "reporterEmail": "test.user@vit.ac.in",
+      "createdAt": "2026-04-09T10:05:34.143Z",
+      "updatedAt": "2026-04-09T10:05:34.143Z"
+    },
+    {
+      "_id": "8a3860d4-2be5-4e95-b75d-3d8cbc5f3958",
+      "name": "White Earbuds",
+      "description": "Wireless earbuds case found near hostel gate.",
+      "location": "Hostel Block A",
+      "category": "Electronics",
+      "status": "Approved",
+      "image": "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?auto=format&fit=crop&w=800&q=80",
+      "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "reporterEmail": "test.user@vit.ac.in",
+      "createdAt": "2026-04-08T11:20:00.000Z",
+      "updatedAt": "2026-04-11T13:08:06.691Z",
+      "claimRequests": [
+        {
+          "userId": "6c234617-8618-4a92-a665-ac1bc0b94d68",
+          "userName": "Shreya Singh",
+          "userEmail": "shreya.singh2023a@vitstudent.ac.in",
+          "message": "",
+          "createdAt": "2026-04-11T13:08:06.691Z"
+        }
+      ]
+    },
+    {
+      "_id": "a2af0891-54e8-4bd4-b515-0d7638da6e79",
+      "name": "Scientific Calculator",
+      "description": "Calculator left in lab after practical session.",
+      "location": "Lab Complex",
+      "category": "Electronics",
+      "status": "Pending",
+      "image": "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=800&q=80",
+      "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "reporterEmail": "test.user@vit.ac.in",
+      "createdAt": "2026-04-07T14:42:10.000Z",
+      "updatedAt": "2026-04-07T14:42:10.000Z"
+    },
+    {
+      "_id": "3e5f31f8-5b8d-49b2-806f-02a80b95f765",
+      "name": "Eyeglasses",
+      "description": "Black-frame glasses found in lecture hall C.",
+      "location": "Lecture Hall",
+      "category": "Accessories",
+      "status": "Found",
+      "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80",
+      "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "reporterEmail": "test.user@vit.ac.in",
+      "createdAt": "2026-04-06T08:12:00.000Z",
+      "updatedAt": "2026-04-06T08:12:00.000Z"
+    },
+    {
+      "_id": "5d96ff2a-6f1c-4f4e-a55c-df735adffb3a",
+      "name": "Smartphone",
+      "description": "Dark smartphone found near cafeteria counter.",
+      "location": "Cafeteria",
+      "category": "Electronics",
+      "status": "Claimed",
+      "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80",
+      "reporter": "6a55d483-a55e-4ae7-be23-fba8e2e5bb35",
+      "reporterEmail": "test.user@vit.ac.in",
+      "createdAt": "2026-04-05T16:30:00.000Z",
+      "updatedAt": "2026-04-05T16:30:00.000Z"
+    },
+    {
+      "_id": "46c1d4d8-060d-42fa-a13e-ff9a0431c588",
+      "name": "Insulated Green Bottle",
+      "description": "Matte green insulated bottle found near the library entrance after evening study hours.",
+      "location": "Library",
+      "category": "Accessories",
+      "date": "2026-04-11T00:00:00.000Z",
+      "status": "Pending",
+      "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80",
+      "reporter": "75662ac0-f580-4ccd-b40b-a8e7d1edb897",
+      "reporterEmail": "product.20260411164832@example.com",
+      "createdAt": "2026-04-11T11:18:33.346Z",
+      "updatedAt": "2026-04-11T11:18:33.346Z"
+    },
+    {
+      "_id": "88db4cfb-9ab6-42e4-90e4-a10e23a692f9",
+      "name": "Navy Laptop Sleeve",
+      "description": "Padded navy laptop sleeve with a front zip pocket, found on a library desk.",
+      "location": "Library",
+      "category": "Bags",
+      "date": "2026-04-11T00:00:00.000Z",
+      "status": "Pending",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+      "reporter": "d192d4f9-f8ab-46dc-9507-ad7b8a3a1e28",
+      "reporterEmail": "report.20260411165001@example.com",
+      "createdAt": "2026-04-11T11:20:01.974Z",
+      "updatedAt": "2026-04-11T12:55:03.717Z",
+      "claimRequests": [
+        {
+          "userId": "3c3e3607-eda1-4938-a1da-ec48781c7bec",
+          "userName": "Claim User",
+          "userEmail": "claim.20260411182503@example.com",
+          "message": "This item matches my description and identifying marks.",
+          "createdAt": "2026-04-11T12:55:03.717Z"
+        }
+      ]
+    },
+    {
+      "_id": "e593f472-ee07-476b-acee-8c25941046f8",
+      "name": "Wireless Mouse",
+      "description": "Compact wireless mouse found in the reading section with a small scratch near the logo.",
+      "location": "Library",
+      "category": "Electronics",
+      "date": "2026-04-11T00:00:00.000Z",
+      "status": "Pending",
+      "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=800&q=80",
+      "reporter": "b01391df-0328-4d0e-bc33-61146ce9e151",
+      "reporterEmail": "fullrun.20260411182922@example.com",
+      "claimRequests": [
+        {
+          "userId": "b01391df-0328-4d0e-bc33-61146ce9e151",
+          "userName": "Full Run User",
+          "userEmail": "fullrun.20260411182922@example.com",
+          "message": "This item belongs to me. I can identify it.",
+          "createdAt": "2026-04-11T12:59:23.345Z"
+        }
+      ],
+      "createdAt": "2026-04-11T12:59:23.302Z",
+      "updatedAt": "2026-04-11T12:59:23.345Z"
+    }
+  ]
+}

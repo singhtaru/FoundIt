@@ -1,7 +1,11 @@
-function FileUpload({ onChange }) {
+import { useId } from 'react';
+
+function FileUpload({ onChange, fileName }) {
+  const inputId = useId();
+
   return (
-    <label className="upload-area">
-      <input type="file" accept="image/*" onChange={onChange} hidden />
+    <label className="upload-area" htmlFor={inputId}>
+      <input id={inputId} type="file" accept="image/*" onChange={onChange} hidden />
       <div className="upload-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none">
           <path
@@ -14,7 +18,7 @@ function FileUpload({ onChange }) {
         </svg>
       </div>
       <strong>Drag &amp; drop or click to upload an image</strong>
-      <span>JPG, PNG, JPEG, GIF up to 10MB</span>
+      <span>{fileName || 'JPG, PNG, JPEG, GIF up to 10MB'}</span>
     </label>
   );
 }
