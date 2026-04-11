@@ -1,10 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import StatusBadge from '../components/StatusBadge';
 import { adminStats, items } from '../assets/mockData';
 
 function AdminDashboardPage() {
+  const location = useLocation();
+
+  const title = useMemo(() => {
+    if (location.pathname.includes('/pending')) return 'Pending Approvals';
+    if (location.pathname.includes('/approved')) return 'Approved Items';
+    if (location.pathname.includes('/claimed')) return 'Claimed Items';
+    return 'Admin Dashboard';
+  }, [location.pathname]);
+
+  const filteredItems = useMemo(() => {
+    if (location.pathname.includes('/pending')) {
+      return items.filter(item => item.status === 'Pending');
+    }
+    if (location.pathname.includes('/approved')) {
+      return items.filter(item => item.status === 'Approved');
+    }
+    if (location.pathname.includes('/claimed')) {
+      return items.filter(item => item.status === 'Claimed');
+    }
+    return items; // Dashboard shows all
+  }, [location.pathname]);
+
   return (
     <main className="admin-page">
       <Navbar admin />
@@ -16,25 +39,27 @@ function AdminDashboardPage() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">Admin panel</span>
-              <h1>Admin Dashboard</h1>
+              <h1>{title}</h1>
             </div>
           </div>
 
-          <div className="stats-grid">
-            {adminStats.map((stat) => (
-              <article key={stat.label} className={`stat-card ${stat.tone}`}>
-                <div className="stat-icon" />
-                <div>
-                  <span>{stat.label}</span>
-                  <strong>{stat.value}</strong>
-                </div>
-              </article>
-            ))}
-          </div>
+          {title === 'Admin Dashboard' && (
+            <div className="stats-grid">
+              {adminStats.map((stat) => (
+                <article key={stat.label} className={`stat-card ${stat.tone}`}>
+                  <div className="stat-icon" />
+                  <div>
+                    <span>{stat.label}</span>
+                    <strong>{stat.value}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
 
           <div className="table-card">
             <div className="section-heading small">
-              <h2>Recent Item Reports</h2>
+              <h2>{title === 'Admin Dashboard' ? 'Recent Item Reports' : title}</h2>
             </div>
 
             <div className="table-wrap">
@@ -49,7 +74,7 @@ function AdminDashboardPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((item) => (
+                  {filteredItems.map((item) => (
                     <tr key={item.id}>
                       <td>
                         <img src={item.image} alt={item.name} className="table-thumb" />
@@ -67,6 +92,13 @@ function AdminDashboardPage() {
                       </td>
                     </tr>
                   ))}
+                  {filteredItems.length === 0 && (
+                    <tr>
+                      <td colSpan="5" style={{ textAlign: 'center', padding: '2rem' }}>
+                        No items found in this section.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

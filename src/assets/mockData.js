@@ -142,8 +142,8 @@ export const adminStats = [
 
 export const adminMenu = [
   { label: 'Dashboard', path: '/admin' },
-  { label: 'Pending Approvals', path: '/admin/review/1' },
-  { label: 'Approved Items', path: '/admin' },
-  { label: 'Claimed Items', path: '/admin' },
-  { label: 'Settings', path: '/admin' },
+  { label: 'Pending Approvals', path: '/admin/pending' },
+  { label: 'Approved Items', path: '/admin/approved' },
+  { label: 'Claimed Items', path: '/admin/claimed' },
+  { label: 'Settings', path: '/admin/settings' },
 ];

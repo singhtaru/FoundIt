@@ -6,6 +6,7 @@ import ReportItemPage from './pages/ReportItemPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import ReviewItemPage from './pages/ReviewItemPage';
 import ItemDetailsPage from './pages/ItemDetailsPage';
+import AdminSettingsPage from './pages/AdminSettingsPage';
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
       <Route path="/search" element={<SearchItemsPage />} />
       <Route path="/report" element={<ReportItemPage />} />
       <Route path="/admin" element={<AdminDashboardPage />} />
+      <Route path="/admin/pending" element={<AdminDashboardPage />} />
+      <Route path="/admin/approved" element={<AdminDashboardPage />} />
+      <Route path="/admin/claimed" element={<AdminDashboardPage />} />
+      <Route path="/admin/settings" element={<AdminSettingsPage />} />
       <Route path="/admin/review/:id" element={<ReviewItemPage />} />
       <Route path="/item/:id" element={<ItemDetailsPage />} />
     </Routes>
