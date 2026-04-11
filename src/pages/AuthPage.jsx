@@ -1,10 +1,54 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
+import { authApi } from '../services/api';
 
 function AuthPage() {
   const [mode, setMode] = useState('signin');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+
+    if (mode === 'signup' && formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const payload = mode === 'signup'
+        ? { name: formData.name, email: formData.email, password: formData.password }
+        : { email: formData.email, password: formData.password };
+
+      const response = mode === 'signup'
+        ? await authApi.signup(payload)
+        : await authApi.signin(payload);
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      navigate('/home');
+    } catch (apiError) {
+      setError(apiError.response?.data?.message || 'Authentication failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="auth-page">
@@ -46,14 +90,45 @@ function AuthPage() {
             </button>
           </div>
 
-          <form className="auth-form">
-            {mode === 'signup' && <FormInput label="Full Name" placeholder="Enter your full name" />}
-            <FormInput label="VIT Email Address" type="email" placeholder="name@vit.ac.in" />
-            <FormInput label="Password" type="password" placeholder="Enter your password" />
+          {error && <p>{error}</p>}
+
+          <form className="auth-form" onSubmit={handleSubmit}>
             {mode === 'signup' && (
-              <FormInput label="Confirm Password" type="password" placeholder="Re-enter password" />
+              <FormInput
+                label="Full Name"
+                placeholder="Enter your full name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
             )}
-            <Button type="submit">{mode === 'signin' ? 'Sign In' : 'Create Account'}</Button>
+            <FormInput
+              label="VIT Email Address"
+              type="email"
+              placeholder="name@vit.ac.in"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <FormInput
+              label="Password"
+              type="password"
+              placeholder="Enter your password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {mode === 'signup' && (
+              <FormInput
+                label="Confirm Password"
+                type="password"
+                placeholder="Re-enter password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            )}
+            <Button type="submit">{loading ? 'Please wait...' : mode === 'signin' ? 'Sign In' : 'Create Account'}</Button>
           </form>
 
           <div className="auth-links">

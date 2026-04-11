@@ -33,6 +33,9 @@ body {
   min-height: 100vh;
   color: var(--text);
   background: var(--bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -191,8 +194,10 @@ img {
 }
 
 .hero-section {
-  padding: 5rem 0 4rem;
+  padding: 4.6rem 0 3.6rem;
   text-align: center;
+  display: grid;
+  gap: 1.05rem;
 }
 
 .hero-copy {
@@ -233,11 +238,17 @@ img {
   gap: 0.85rem;
   width: min(760px, 100%);
   padding: 0.95rem 1.15rem;
-  margin: 2rem auto 1.8rem;
+  margin: 1.35rem auto 0.55rem;
   border-radius: 999px;
   border: 1px solid rgba(148, 163, 184, 0.22);
   background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 52px rgba(15, 23, 42, 0.08);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-shell:focus-within {
+  border-color: rgba(8, 145, 178, 0.42);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.12);
 }
 
 .search-shell input {
@@ -259,7 +270,7 @@ img {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-  margin-top: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 .button {
@@ -270,7 +281,7 @@ img {
   padding: 0.95rem 1.5rem;
   border-radius: 16px;
   font-weight: 700;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.16s ease, box-shadow 0.2s ease;
 }
 
 .button:hover {
@@ -326,6 +337,10 @@ img {
   gap: 1.2rem;
 }
 
+.home-items-grid {
+  margin-top: 0.25rem;
+}
+
 .items-grid.two-column {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -347,7 +362,7 @@ img {
 .item-card {
   display: flex;
   gap: 1rem;
-  padding: 1rem;
+  padding: 1.05rem;
   border-radius: 22px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -441,10 +456,16 @@ img {
 
 .auth-shell {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 2rem;
-  width: min(1080px, 100%);
+  justify-items: center;
+  gap: 1.2rem;
+  width: min(760px, 100%);
+}
+
+.auth-intro {
+  text-align: center;
+  max-width: 620px;
 }
 
 .auth-intro h1 {
@@ -460,7 +481,7 @@ img {
 
 .auth-card {
   width: min(470px, 100%);
-  margin-left: auto;
+  margin: 0 auto;
   padding: 2rem;
   border-radius: 28px;
 }
@@ -511,6 +532,7 @@ img {
   margin-top: 1rem;
   color: var(--muted);
   font-size: 0.95rem;
+  align-items: center;
 }
 
 .auth-links a {
@@ -552,7 +574,7 @@ img {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 1.4rem;
-  padding: 2rem 0 4rem;
+  padding: 1.8rem 0 3.4rem;
 }
 
 .filter-card,
@@ -582,7 +604,7 @@ img {
   width: min(720px, 100%);
   margin: 0 auto;
   display: grid;
-  gap: 1rem;
+  gap: 1.08rem;
 }
 
 .split-fields {
@@ -822,6 +844,12 @@ td span {
   .items-grid,
   .items-grid.two-column {
     grid-template-columns: 1fr;
+  }
+
+  .home-items-grid {
+    width: min(760px, 100%);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .auth-card {

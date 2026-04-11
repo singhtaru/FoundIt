@@ -1,7 +1,7 @@
-function FileUpload() {
+function FileUpload({ onChange }) {
   return (
     <label className="upload-area">
-      <input type="file" hidden />
+      <input type="file" accept="image/*" onChange={onChange} hidden />
       <div className="upload-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none">
           <path

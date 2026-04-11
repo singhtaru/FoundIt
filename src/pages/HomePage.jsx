@@ -1,11 +1,27 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
-import { items } from '../assets/mockData';
+import { itemsApi } from '../services/api';
 
 function HomePage() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const loadItems = async () => {
+      try {
+        const response = await itemsApi.getItems();
+        setItems(response.data.slice(0, 4));
+      } catch (error) {
+        console.error('Failed to load items:', error);
+      }
+    };
+
+    loadItems();
+  }, []);
+
   return (
     <main className="page-shell">
       <Navbar />
@@ -31,9 +47,9 @@ function HomePage() {
           </Link>
         </div>
 
-        <div className="items-grid">
-          {items.slice(0, 4).map((item) => (
-            <ItemCard key={item.id} item={item} />
+        <div className="items-grid home-items-grid">
+          {items.map((item) => (
+            <ItemCard key={item._id} item={item} />
           ))}
         </div>
       </section>

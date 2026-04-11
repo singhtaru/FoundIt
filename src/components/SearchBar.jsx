@@ -1,4 +1,10 @@
-function SearchBar({ placeholder = 'Search items...', className = '' }) {
+function SearchBar({ placeholder = 'Search items...', className = '', onSearch }) {
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && onSearch) {
+      onSearch(event.target.value);
+    }
+  };
+
   return (
     <div className={`search-shell ${className}`.trim()}>
       <span className="search-icon" aria-hidden="true">
@@ -12,7 +18,7 @@ function SearchBar({ placeholder = 'Search items...', className = '' }) {
           />
         </svg>
       </span>
-      <input type="text" placeholder={placeholder} />
+      <input type="text" placeholder={placeholder} onKeyDown={handleKeyDown} />
     </div>
   );
 }
