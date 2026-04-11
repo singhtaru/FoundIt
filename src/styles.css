@@ -262,6 +262,10 @@ img {
   margin-top: 0.5rem;
 }
 
+.hero-actions {
+  margin-bottom: 3rem;
+}
+
 .button {
   display: inline-flex;
   align-items: center;

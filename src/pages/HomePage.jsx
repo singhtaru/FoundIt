@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import Button from '../components/Button';
+
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
@@ -22,14 +21,7 @@ function HomePage() {
 
         <SearchBar placeholder="Search for lost items..." className="hero-search" />
 
-        <div className="hero-actions">
-          <Link to="/report">
-            <Button>Report a Found Item</Button>
-          </Link>
-          <Link to="/search">
-            <Button variant="secondary">Search All Listings</Button>
-          </Link>
-        </div>
+
 
         <div className="items-grid">
           {items.slice(0, 4).map((item) => (

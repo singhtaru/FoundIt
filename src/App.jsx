@@ -5,6 +5,7 @@ import SearchItemsPage from './pages/SearchItemsPage';
 import ReportItemPage from './pages/ReportItemPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import ReviewItemPage from './pages/ReviewItemPage';
+import ItemDetailsPage from './pages/ItemDetailsPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/report" element={<ReportItemPage />} />
       <Route path="/admin" element={<AdminDashboardPage />} />
       <Route path="/admin/review/:id" element={<ReviewItemPage />} />
+      <Route path="/item/:id" element={<ItemDetailsPage />} />
     </Routes>
   );
 }
