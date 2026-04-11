@@ -13,13 +13,10 @@ const fallbackItems = mockItems
   .map(normalizeMockItem)
   .filter((item) => String(item.status || '').toLowerCase() === 'approved');
 
-function SearchItemsPage() {
-  const locationState = useLocation();
-  const initialSearch = locationState.state?.initialSearch || '';
-  const [items, setItems] = useState([]);
-  const [filters, setFilters] = useState({ location: '', category: '', search: initialSearch, startDate: '', endDate: '' });
-
-  const filterFallbackItems = (params = {}) => fallbackItems.filter((item) => {
+function buildSearchItems(items, params = {}) {
+  const liveItems = Array.isArray(items) ? items : [];
+  const seenNames = new Set(liveItems.map((item) => item.name));
+  const filteredFallback = fallbackItems.filter((item) => {
     const matchesLocation = !params.location || item.location === params.location;
     const matchesCategory = !params.category || item.category === params.category;
     const term = String(params.search || '').trim().toLowerCase();
@@ -33,19 +30,27 @@ function SearchItemsPage() {
     return matchesLocation && matchesCategory && matchesSearch && matchesStartDate && matchesEndDate;
   });
 
+  const extraItems = filteredFallback.filter((item) => !seenNames.has(item.name));
+  return [...liveItems, ...extraItems];
+}
+
+function SearchItemsPage() {
+  const locationState = useLocation();
+  const initialSearch = locationState.state?.initialSearch || '';
+  const [items, setItems] = useState([]);
+  const [filters, setFilters] = useState({ location: '', category: '', search: initialSearch, startDate: '', endDate: '' });
+
   const loadItems = async (params = {}) => {
     const approvedOnlyParams = { ...params, status: 'Approved' };
 
     try {
       const response = await itemsApi.getItems(approvedOnlyParams);
-      const nextItems = Array.isArray(response.data) && response.data.length > 0
-        ? response.data
-        : filterFallbackItems(approvedOnlyParams);
+      const nextItems = buildSearchItems(response.data, approvedOnlyParams);
 
       setItems(nextItems);
     } catch (error) {
       console.error('Failed to load search items:', error);
-      setItems(filterFallbackItems(approvedOnlyParams));
+      setItems(buildSearchItems([], approvedOnlyParams));
     }
   };
 
